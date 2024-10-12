@@ -14,21 +14,22 @@
 {% endblock %}
 
 {% block content %}
-<!-- Форма для фільтрації та пошуку -->
-<form method="GET" action="">
-    <input type="text" name="search" placeholder="Пошук за заголовком" value="{{ request.GET.search }}">
+<form method="GET" action="{% url 'homepage2' %}">
+    <input type="text" name="search" placeholder="Пошук за заголовком">
 
     <select name="category">
-        <option value="">Виберіть категорію</option>
+        <option value="">Вибрати категорію</option>
         {% for category in categories %}
-            <option value="{{ category.title }}" {% if request.GET.category == category.title %}selected{% endif %}>{{ category.title }}</option>
+            <option value="{{ category.title }}">{{ category.title }}</option>
         {% endfor %}
     </select>
 
-    <input type="datetime-local" name="reminder" placeholder="Виберіть дату нагадування" value="{{ request.GET.reminder }}">
+    <input type="date" name="reminder_date" placeholder="Дата нагадування (YYYY-MM-DD)">
+    <input type="time" name="reminder_time" placeholder="Час нагадування (HH:MM)">
 
-    <button type="submit">Знайти</button>
+    <button type="submit">Фільтрувати</button>
 </form>
+
 
 <h2>Posts</h2>
 {% for post in posts %}
