@@ -2,6 +2,7 @@
 from django.http import HttpResponse
 from datetime import datetime
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -10,8 +11,7 @@ from django.shortcuts import render
 
 from django.shortcuts import render , redirect
 from django.urls import reverse, reverse_lazy
-from .models import Post , Note
-from .models import Author
+from .models import Post, Note, Author, Category
 from .forms import PostForm , NoteForm
 
 
@@ -22,7 +22,24 @@ def homepage2(request):
     posts = Post.objects.all()
     authors = Author.objects.all()
     notes = Note.objects.all()
-    context = {'posts': posts, 'authors': authors, 'notes': notes}
+    categories = Category.objects.all()
+    search_query = request.GET.get('search', '')
+    category_filter = request.GET.get('category', '')
+    reminder_filter = request.GET.get('reminder', '')
+
+    if search_query:
+        notes = notes.filter(title__icontains=search_query)
+    if category_filter:
+        notes = notes.filter(category__title=category_filter)
+    if reminder_filter:
+        notes = notes.filter(reminder__date=reminder_filter)
+
+    context = {
+        'posts': posts,
+        'authors': authors,
+        'notes': notes,
+        'categories': categories,
+    }
     return render(request, 'notes/homepage2.html', context)
 
 
@@ -75,3 +92,23 @@ def note_detail(request, pk):
     note = get_object_or_404(Note, pk=pk)
     context = {'note': note}
     return render(request, 'notes/note_detail.html', context)
+
+def delete_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == 'POST':
+        note.delete()
+        return redirect('note_list')
+
+    return render(request, 'notes/delete_note.html', {'note': note})
+
+
+def edit_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == 'POST':
+        form = NoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            return redirect('note_list')
+    else:
+        form = NoteForm(instance=note)
+    return render(request, 'notes/edit_note.html', {'form': form, 'note': note})

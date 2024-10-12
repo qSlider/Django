@@ -1,4 +1,5 @@
 {% extends 'polls/index.html' %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,28 @@
 </head>
 <body>
 <h1>Home Page</h1>
+
 {% block header %}
 <a href="{% url 'index' %}">Index</a>
 {% endblock %}
 
 {% block content %}
+<!-- Форма для фільтрації та пошуку -->
+<form method="GET" action="">
+    <input type="text" name="search" placeholder="Пошук за заголовком" value="{{ request.GET.search }}">
+
+    <select name="category">
+        <option value="">Виберіть категорію</option>
+        {% for category in categories %}
+            <option value="{{ category.title }}" {% if request.GET.category == category.title %}selected{% endif %}>{{ category.title }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="datetime-local" name="reminder" placeholder="Виберіть дату нагадування" value="{{ request.GET.reminder }}">
+
+    <button type="submit">Знайти</button>
+</form>
+
 <h2>Posts</h2>
 {% for post in posts %}
     <p>

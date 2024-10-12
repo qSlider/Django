@@ -11,5 +11,10 @@
     <p>Категорія: {{ note.category.title }}</p>
     <p>Нагадування: {{ note.reminder }}</p>
     <a href="{% url 'homepage2' %}">Повернутися до списку нотаток</a>
+    <br>
+    <a href="{% url 'delete_note' note.pk %}">Видалити нотатку</a>
+    <br>
+    <a href="{% url 'edit_note' note.pk %}">Редагувати нотатку</a>
+
 </body>
 </html>
