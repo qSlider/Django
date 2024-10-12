@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Note List</title>
 </head>
 <body>
-    {% block content %}
-    <h1>My Notes</h1>
+    <h1>Список нотаток</h1>
     <ul>
         {% for note in notes %}
-            <li>{{ note }}</li>
+            <li>{{ note.title }} - {{ note.category.title }} ({{ note.reminder }})</li>
         {% endfor %}
     </ul>
-    {% endblock %}
+    <a href="{% url 'add_note' %}">Додати нову нотатку</a>
 </body>
 </html>

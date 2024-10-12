@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Назва бази даних
+        'USER': 'postgres',  # Ім'я користувача
+        'PASSWORD': '123456789',  # Пароль
+        'HOST': 'localhost',  # Адреса сервера
+        'PORT': '5432',  # Порт (за замовчуванням 5432)
     }
 }
 
@@ -123,6 +127,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'polls/static'),
+    os.path.join(BASE_DIR, 'notes/static'),
 ]
 
 # Default primary key field type
