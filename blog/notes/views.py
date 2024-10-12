@@ -1,6 +1,7 @@
 # notes/views.py
 from django.http import HttpResponse
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -19,9 +20,11 @@ def index(request):
 
 def homepage2(request):
     posts = Post.objects.all()
-    author = Author.objects.all()
-    context = {'posts': posts ,'author':author}
-    return render(request, 'notes/homepage2.html' , context)
+    authors = Author.objects.all()
+    notes = Note.objects.all()
+    context = {'posts': posts, 'authors': authors, 'notes': notes}
+    return render(request, 'notes/homepage2.html', context)
+
 
 
 def add_post2(request):
@@ -59,11 +62,16 @@ def add_note(request):
         form = NoteForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('note_list')
+            return redirect('homepage2')
     else:
         form = NoteForm()
     return render(request, 'notes/add_note.html', {'form': form})
 
-def note_list(request):
+def note_list(request): # Не правильно , але хай буде
     notes = Note.objects.all()
     return render(request, 'notes/note_list.html', {'notes': notes})
+
+def note_detail(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    context = {'note': note}
+    return render(request, 'notes/note_detail.html', context)

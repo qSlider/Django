@@ -9,6 +9,7 @@ urlpatterns = [
     path('homepage2/', homepage2, name='homepage2'),
     path('author2/<int:pk>/', author_page2, name='author_page2'),
     path('add_like2/<int:pk>/', add_like2, name='add_like2'),
-    path('add/', add_note, name='add_note'),
+    path('add_note/', add_note, name='add_note'),
     path('note_list/', note_list, name='note_list'),
+    path('notes/<int:pk>/', views.note_detail, name='note_detail'),
 ]

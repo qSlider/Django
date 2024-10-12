@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ note.title }}</title>
+</head>
+<body>
+    <h1>{{ note.title }}</h1>
+    <p>{{ note.text }}</p>
+    <p>Категорія: {{ note.category.title }}</p>
+    <p>Нагадування: {{ note.reminder }}</p>
+    <a href="{% url 'homepage2' %}">Повернутися до списку нотаток</a>
+</body>
+</html>
