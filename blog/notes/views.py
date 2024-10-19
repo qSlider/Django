@@ -57,6 +57,44 @@ def homepage2(request):
     }
     return render(request, 'notes/homepage2.html', context)
 
+def homepagetest(request):
+    posts = Post.objects.all()
+    authors = Author.objects.all()
+    notes = Note.objects.all()
+    categories = Category.objects.all()
+    search_query = request.GET.get('search', '')
+    category_filter = request.GET.get('category', '')
+    reminder_date_filter = request.GET.get('reminder_date', '')
+    reminder_time_filter = request.GET.get('reminder_time', '')
+
+    if search_query:
+        notes = notes.filter(title__icontains=search_query)
+
+    if category_filter:
+        notes = notes.filter(category__title=category_filter)
+
+    if reminder_date_filter:
+        try:
+            reminder_date = datetime.strptime(reminder_date_filter, '%Y-%m-%d')
+            notes = notes.filter(reminder__date=reminder_date)
+        except ValueError:
+            pass
+
+    if reminder_time_filter:
+        try:
+            reminder_time = datetime.strptime(reminder_time_filter, '%H:%M').time()
+            notes = notes.filter(reminder__hour=reminder_time.hour, reminder__minute=reminder_time.minute)
+        except ValueError:
+            pass
+
+    context = {
+        'posts': posts,
+        'authors': authors,
+        'notes': notes,
+        'categories': categories,
+    }
+    return render(request, 'notes/homepagetest.html', context)
+
 
 
 def add_post2(request):

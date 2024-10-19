@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import add_post2 , post_detail2 , homepage2 , author_page2 , add_like2 , add_note, note_list
+from .views import add_post2 , post_detail2 , homepage2 , author_page2 , add_like2 , add_note, note_list , homepagetest
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('notes/<int:pk>/', views.note_detail, name='note_detail'),
     path('notes/<int:pk>/delete/', views.delete_note, name='delete_note'),
     path('notes/<int:pk>/edit/', views.edit_note, name='edit_note'),
+    path('homepagetest/', homepagetest, name='homepagetest'),
 ]

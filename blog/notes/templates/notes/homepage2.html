@@ -1,4 +1,3 @@
-{% extends 'polls/index.html' %}
 
 {% block content %}
 <!DOCTYPE html>
@@ -44,26 +43,6 @@
             <button type="submit" class="btn btn-primary">Фільтрувати</button>
         </div>
     </form>
-
-    <!-- Posts Section -->
-    <h2>Posts</h2>
-    <div class="list-group">
-        {% for post in posts %}
-            <a href="{% url 'post_detail2' post.pk %}" class="list-group-item list-group-item-action">
-                {{ post.title }}
-            </a>
-        {% endfor %}
-    </div>
-
-    <!-- Authors Section -->
-    <h2>Authors</h2>
-    <div class="list-group">
-        {% for author in authors %}
-            <a href="{% url 'author_page2' author.pk %}" class="list-group-item list-group-item-action">
-                {{ author.first_name }} {{ author.last_name }}
-            </a>
-        {% endfor %}
-    </div>
 
     <!-- Notes Section -->
     <h2>Notes</h2>
