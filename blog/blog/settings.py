@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'notes',
-    'polls',
+    'polls2',
     'bootstrap5'
 ]
 
@@ -127,7 +127,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'polls/static'),
+    os.path.join(BASE_DIR, 'polls2/static'),
     os.path.join(BASE_DIR, 'notes/static'),
 ]
 

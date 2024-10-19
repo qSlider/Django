@@ -1,20 +1,27 @@
+{% extends 'polls/index.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Post</title>
 </head>
 <body>
-    <h1>My Form</h1>
+{% block content %}
 
-    {% block content %}
-    <p>form</p>
+<form method="post">
+    {% csrf_token %}
+  <div class="mb-3">
+    <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+    <input name="title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">Enter title for your post</div>
+  </div>
+  <div class="mb-3">
+    <label for="{{ form.content.id_for_label }}" class="form-label">Content</label>
+    <input name="content" type="text" class="form-control" id="exampleInputPassword1">
+  </div>
+    <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Add">
-    </form>
-    {% endblock %}
+{% endblock %}
 </body>
 </html>

@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('polls', '0002_alter_post_number_of_likes'),
+        ('polls2', '0002_alter_post_number_of_likes'),
     ]
 
     operations = [
@@ -24,6 +24,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='author',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='polls.author'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='polls2.author'),
         ),
     ]
